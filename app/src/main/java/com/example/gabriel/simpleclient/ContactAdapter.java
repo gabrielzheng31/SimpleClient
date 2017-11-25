@@ -1,6 +1,8 @@
 package com.example.gabriel.simpleclient;
 
 import android.content.Context;
+import android.support.design.widget.Snackbar;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,41 +16,72 @@ import java.util.List;
  * Created by gabriel on 17-11-24.
  */
 
-public class ContactAdapter extends ArrayAdapter<Contact> {
+public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHolder> {
 
-    private int resourceId;
+    private List<Contact> mContactList;
 
-    public ContactAdapter(Context context, int textViewResourceId, List<Contact> objects) {
-        super(context, textViewResourceId, objects);
-        resourceId = textViewResourceId;
+    static class ViewHolder extends RecyclerView.ViewHolder {
+        View contactView;
+        ImageView contactImage;
+        TextView contactName;
+
+        public ViewHolder(View view) {
+            super(view);
+            contactView = view;
+            contactImage = (ImageView) view.findViewById(R.id.contact_image);
+            contactName = (TextView) view.findViewById(R.id.contact_name);
+        }
+    }
+
+    public ContactAdapter(List<Contact> contactList) {
+        mContactList = contactList;
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-        Contact contact = getItem(position);
-        View view;
-        ViewHolder viewHolder;
-        if (null == convertView) {
-            view = LayoutInflater.from(getContext()).inflate(resourceId, parent, false);
-            viewHolder = new ViewHolder();
-            viewHolder.contactImage = view.findViewById(R.id.contact_image);
-            viewHolder.contactName = view.findViewById(R.id.contact_name);
-            view.setTag(viewHolder);
-        }
-        else {
-            view = convertView;
-            viewHolder = (ViewHolder) view.getTag();
-        }
-        viewHolder.contactImage.setImageResource(contact.getImageId());
-        viewHolder.contactName.setText(contact.getName());
-        return view;
+    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.contact_item,
+                parent, false);
+        final ViewHolder holder = new ViewHolder(view);
+        holder.contactView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int position = holder.getAdapterPosition();
+                Contact contact = mContactList.get(position);
+                Snackbar.make(view, "You clicked view " + contact.getName(),
+                        Snackbar.LENGTH_SHORT).show();
+            }
+        });
+        holder.contactImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int position = holder.getAdapterPosition();
+                Contact contact = mContactList.get(position);
+                Snackbar.make(view, "You clicked image " + contact.getName(),
+                        Snackbar.LENGTH_SHORT).show();
+            }
+        });
+        holder.contactName.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int position = holder.getAdapterPosition();
+                Contact contact = mContactList.get(position);
+                Snackbar.make(view, "You clicked name " + contact.getName(),
+                        Snackbar.LENGTH_SHORT).show();
+            }
+        });
+        return holder;
     }
 
-    class ViewHolder {
-
-        ImageView contactImage;
-
-        TextView contactName;
-
+    @Override
+    public void onBindViewHolder(ViewHolder holder, int position) {
+        Contact contact = mContactList.get(position);
+        holder.contactImage.setImageResource(contact.getImageId());
+        holder.contactName.setText(contact.getName());
     }
+
+    @Override
+    public int getItemCount() {
+        return mContactList.size();
+    }
+
 }

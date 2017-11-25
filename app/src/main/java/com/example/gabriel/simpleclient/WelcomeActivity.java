@@ -1,8 +1,11 @@
 package com.example.gabriel.simpleclient;
 
 import android.content.Intent;
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -27,18 +30,19 @@ public class WelcomeActivity extends BaseActivity {
         setContentView(R.layout.activity_welcome);
 
         initContact();
-        ContactAdapter adapter = new ContactAdapter(WelcomeActivity.this,
-                R.layout.contact_item, contactList);
-        ListView listView = (ListView) findViewById(R.id.list_view);
-        listView.setAdapter(adapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recycler_view);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+        ContactAdapter adapter = new ContactAdapter(contactList);
+        recyclerView.setAdapter(adapter);
+        /*recyclerView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Contact contact = contactList.get(i);
                 Toast.makeText(WelcomeActivity.this, contact.getName(), Toast.LENGTH_SHORT)
                         .show();
             }
-        });
+        });*/
     }
 
     private void initContact() {
