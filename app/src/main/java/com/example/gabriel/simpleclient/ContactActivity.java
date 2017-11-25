@@ -1,5 +1,6 @@
 package com.example.gabriel.simpleclient;
 
+import android.content.Context;
 import android.content.Intent;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -20,7 +21,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-public class WelcomeActivity extends BaseActivity {
+public class ContactActivity extends BaseActivity {
 
     private List<Contact> contactList = new ArrayList<>();
 
@@ -39,7 +40,7 @@ public class WelcomeActivity extends BaseActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 Contact contact = contactList.get(i);
-                Toast.makeText(WelcomeActivity.this, contact.getName(), Toast.LENGTH_SHORT)
+                Toast.makeText(ContactActivity.this, contact.getName(), Toast.LENGTH_SHORT)
                         .show();
             }
         });*/
@@ -53,4 +54,5 @@ public class WelcomeActivity extends BaseActivity {
             contactList.add(Bob);
         }
     }
+
 }

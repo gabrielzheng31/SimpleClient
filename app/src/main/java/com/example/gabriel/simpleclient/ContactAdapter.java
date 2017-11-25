@@ -1,6 +1,7 @@
 package com.example.gabriel.simpleclient;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,6 +12,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
+
+import static android.support.v4.content.ContextCompat.startActivity;
 
 /**
  * Created by gabriel on 17-11-24.
@@ -49,6 +52,7 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ViewHold
                 Contact contact = mContactList.get(position);
                 Snackbar.make(view, "You clicked view " + contact.getName(),
                         Snackbar.LENGTH_SHORT).show();
+                ChatActivity.actionStart(view.getContext());
             }
         });
         holder.contactImage.setOnClickListener(new View.OnClickListener() {
