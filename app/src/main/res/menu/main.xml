@@ -3,4 +3,8 @@
     <item
         android:id="@+id/quit"
         android:title="Quit"/>
+    <item
+        android:id="@+id/logoff"
+        android:title="Log off"
+        />
 </menu>
