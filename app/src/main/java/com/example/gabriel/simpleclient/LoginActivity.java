@@ -31,7 +31,8 @@ public class LoginActivity extends BaseActivity {
                     startActivity(intent_contact);
                     finish();
                 } else {
-                    Snackbar.make(getWindow().getDecorView(), "account or password is incorrect",
+                    View view = findViewById(R.id.button_login);
+                    Snackbar.make(view, "account or password is incorrect",
                             Snackbar.LENGTH_SHORT).show();
                 }
 

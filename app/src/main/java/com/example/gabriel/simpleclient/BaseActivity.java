@@ -85,6 +85,7 @@ public class BaseActivity extends AppCompatActivity {
             receiver = null;
         }
     }
+
     class NetworkChangeReceiver extends BroadcastReceiver {
 
         @Override
@@ -93,11 +94,17 @@ public class BaseActivity extends AppCompatActivity {
                     getSystemService(Context.CONNECTIVITY_SERVICE);
             NetworkInfo networkInfo = connectivityManager.getActiveNetworkInfo();
             if(networkInfo != null && networkInfo.isAvailable()) {
-                Snackbar.make(getWindow().getDecorView(), "Network is available.",
-                        Snackbar.LENGTH_SHORT).show();
+                switch (networkInfo.getType()) {
+                    case ConnectivityManager.TYPE_WIFI:
+                        Toast.makeText(context, "WIFI is available.",
+                                Toast.LENGTH_SHORT).show();
+                    case ConnectivityManager.TYPE_MOBILE:
+                        Toast.makeText(context, "Mobile data is available.",
+                                Toast.LENGTH_SHORT).show();
+                }
             } else {
-                Snackbar.make(getWindow().getDecorView(), "Network is unavailable.",
-                        Snackbar.LENGTH_SHORT).show();
+                Toast.makeText(context, "Network is unavailable.",
+                        Toast.LENGTH_SHORT).show();
             }
 
         }
