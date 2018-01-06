@@ -13,9 +13,9 @@ import java.util.List;
  * Created by gabriel on 17-11-25.
  */
 
-public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHolder> {
+public class MyMessageAdapter extends RecyclerView.Adapter<MyMessageAdapter.ViewHolder> {
 
-    private List<Message> mMessageList;
+    private List<MyMessage> mMessageList;
 
     static class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -33,7 +33,7 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
         }
     }
 
-    public MessageAdapter(List<Message> messageList) {
+    public MyMessageAdapter(List<MyMessage> messageList) {
         mMessageList = messageList;
     }
 
@@ -46,12 +46,12 @@ public class MessageAdapter extends RecyclerView.Adapter<MessageAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Message message = mMessageList.get(position);
-        if (message.getType() == Message.TYPE_RECEIVED) {
+        MyMessage message = mMessageList.get(position);
+        if (message.getType() == MyMessage.TYPE_RECEIVED) {
             holder.leftLayout.setVisibility(View.VISIBLE);
             holder.rightLayout.setVisibility(View.GONE);
             holder.leftMessage.setText(message.getContent());
-        } else if (message.getType() == Message.TYPE_SENT) {
+        } else if (message.getType() == MyMessage.TYPE_SENT) {
             holder.rightLayout.setVisibility(View.VISIBLE);
             holder.leftLayout.setVisibility(View.GONE);
             holder.rightMessage.setText(message.getContent());
